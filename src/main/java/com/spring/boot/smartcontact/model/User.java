@@ -14,7 +14,7 @@ public class User {
     private String name;
     @Column(unique = true)
     private String email;
-    private String password;
+    private String password; 
     private String role;
     private boolean enabled;
     private String imageUrl;
@@ -120,6 +120,7 @@ public class User {
                 ", enabled=" + enabled +
                 ", imageUrl='" + imageUrl + '\'' +
                 ", about='" + about + '\'' +
+                ", contacts=" + contacts +
                 '}';
     }
 }
