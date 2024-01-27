@@ -6,6 +6,7 @@ import com.spring.boot.smartcontact.model.User;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -13,6 +14,8 @@ import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class HomeController {
+    @Autowired
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Autowired
     private UserRepository userRepository;
@@ -20,6 +23,12 @@ public class HomeController {
     @GetMapping("/")
     public String dispatch() {
         return "home";
+    }
+
+    @GetMapping("/login")
+    public String login(Model model) {
+        model.addAttribute("title", "Login Page");
+        return "login";
     }
 
     @GetMapping("/test")
@@ -64,6 +73,7 @@ public class HomeController {
             user.setEnabled(true);
             user.setRole("ROLE_USER");
             user.setImageUrl("default.png");
+            user.setPassword(this.bCryptPasswordEncoder.encode(user.getPassword()));
             System.out.println("Agreement: "+agreement);
             System.out.println("User: "+user);
 
