@@ -1,6 +1,8 @@
 package com.spring.boot.smartcontact.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 
 @Entity
 @Table(name = "contact")
@@ -8,15 +10,26 @@ public class Contact {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int cId;
+    @NotBlank(message = "Name field is required.")
+    @Size(min = 2, max = 20, message = "Enter name between 2 to 20 characters.")
     private String name;
+    @NotBlank(message = "Name field is required.")
+    @Size(min = 2, max = 20, message = "Enter name between 2 to 20 characters.")
     private String secondName;
-    private String work;
-    private String email;
+
+    @NotBlank(message = "Number field is required.")
+    @Size(min = 11, max = 11, message = "Enter 11 digit Number.")
     private String phone;
-    private String image;
+
+    @NotBlank(message = "Email field is required.")
+    private String email;
+    @NotBlank(message = "Work field is required.")
+    private String work;
     @Column(length = 5000)
     private String description;
 
+    //@NotBlank(message = "Image field is required.")
+    private String image;
     @ManyToOne
     private User user;
 
@@ -119,4 +132,10 @@ public class Contact {
                 ", description='" + description + '\'' +
                 '}';
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        return this.cId == ((Contact)obj).getcId();
+    }
+
 }

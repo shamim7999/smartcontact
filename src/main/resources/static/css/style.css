@@ -54,3 +54,7 @@ section .card {
     margin-right: 15%;
     margin-left: -10%;
 }
+
+.inliner form {
+    display: inline-block;
+}
